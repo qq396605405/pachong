@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+dianying=[]
+for i in range(10):
+    url = 'https://movie.douban.com/top250?start=' + str(i*25) + '&filter='
+    res=requests.get(url)
+    soup=BeautifulSoup(res.text,'html.parser')
+    items=soup.find_all(class_="item")
+    for j in range(25):
+        xuhao=i*25+j+1
+        a=items[j].find(class_="title")
+        dianyingming=a.text
+        e=items[j].find(class_="inq")
+        if e:
+            tuijianyu=e.text
+        f=items[j].find(class_="rating_num")
+        pingfen=f.text
+        g=items[j].find('a')['href']
+        lianjie=g
+        dianying.append([xuhao,dianyingming,tuijianyu,pingfen,lianjie])
+dianying
+
+
+
+
